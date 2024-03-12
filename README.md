@@ -1,0 +1,2 @@
+# pelada-score-server
+Servidor
