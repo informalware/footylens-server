@@ -1,6 +1,6 @@
-# Pelada Score Server
+# FootyLens Server
 
-Servidor Back-End para o projeto [Pelada Score](https://github.com/informalware/pelada-score)
+Servidor Back-End para o projeto [FootyLens](https://github.com/informalware/footylens)
 
 ## Dependências
 
