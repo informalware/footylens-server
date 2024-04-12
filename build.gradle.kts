@@ -9,14 +9,15 @@ plugins {
     kotlin("plugin.serialization") version "1.9.23"
 }
 
-group = "com.informalware"
+group = "com.informalware.footylens"
 version = "0.0.1"
 
 application {
-    mainClass.set("com.informalware.ApplicationKt")
+    mainClass.set("com.informalware.footylens.ApplicationKt")
+    //project.ext.set("development", true)
 
-    val isDevelopment: Boolean = project.ext.has("development")
-    applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
+    //val isDevelopment: Boolean = project.ext.has("development")
+    applicationDefaultJvmArgs = listOf("-Dio.ktor.development=true")
 }
 
 repositories {

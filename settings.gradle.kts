@@ -1,1 +1,1 @@
-rootProject.name = "com.informalware.pelada-score-server"
+rootProject.name = "com.informalware.footylens"
