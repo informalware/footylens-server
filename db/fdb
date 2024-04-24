@@ -1,0 +1,90 @@
+#!/bin/bash
+
+IMAGE_NAME=footylensdb
+IMAGE_TAG=latest
+CONTAINER_NAME=${IMAGE_NAME}
+DATABASE_NAME=footylens
+DATABASE_USER=footy
+DATABASE_PASSWORD=senhasenha
+DATABASE_MAX_CONNECTIONS=200
+
+remove-container() {
+    [[ -n `docker ps -a | grep ${CONTAINER_NAME}` ]] && \
+        docker rm ${CONTAINER_NAME}
+}
+
+stop-container() {
+    [[ -n `docker ps | grep ${CONTAINER_NAME}` ]] && \
+        docker stop ${CONTAINER_NAME}
+}
+
+container-status() {
+    local container_info=$(docker ps --format 'Container {{.Names}} started {{.RunningFor}}' | grep "${CONTAINER_NAME}")
+
+    if [[ -n "$container_info" ]]; then
+        echo "Database server is running."
+        echo "$container_info"
+    else
+        echo "Database server is down."
+    fi
+}
+
+init() {
+    remove-container
+
+    docker run -itd \
+        --name ${CONTAINER_NAME} \
+        -e POSTGRES_PASSWORD=${DATABASE_PASSWORD} \
+        -e POSTGRES_USER=${DATABASE_USER} \
+        -e POSTGRES_DB=${DATABASE_NAME} \
+        ${IMAGE_NAME}:${IMAGE_TAG} \
+        postgres -c shared_buffers=256MB -c max_connections=${DATABASE_MAX_CONNECTIONS}
+}
+
+shut() {
+    stop-container
+    remove-container
+}
+
+psql() {
+    docker exec -it ${CONTAINER_NAME} psql -d ${DATABASE_NAME} -U ${DATABASE_USER}
+}
+
+help() {
+    echo "Footylens Database Manager Beta"
+    echo "Usage fdb <command> [options]"
+    echo ""
+
+    echo "help          Shows this page"
+    echo "init          Initiates the database server"
+    echo "psql          Opens a psql shell"
+    echo "shut          Shuts the database server down"
+    echo "status        Tells if the database is up or down"
+}
+
+case "$1" in
+    init|i)
+        shift
+        init "$@"
+        ;;
+    shut)
+        shift
+        shut
+        ;;
+    psql|p)
+        shift
+        psql "$@"
+        ;;
+    status)
+        shift
+        container-status
+        ;;
+    help|-h)
+        shift
+        help
+        ;;
+    *)
+        echo "Unknown command $1"
+        help
+        ;;    
+esac
