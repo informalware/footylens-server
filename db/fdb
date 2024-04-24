@@ -46,6 +46,10 @@ shut() {
     remove-container
 }
 
+rebuild() {
+    docker build . -t ${IMAGE_NAME}:${IMAGE_TAG}
+}
+
 psql() {
     docker exec -it ${CONTAINER_NAME} psql -d ${DATABASE_NAME} -U ${DATABASE_USER}
 }
@@ -56,8 +60,9 @@ help() {
     echo ""
 
     echo "help          Shows this page"
-    echo "init          Initiates the database server"
-    echo "psql          Opens a psql shell"
+    echo "init i        Initiates the database server"
+    echo "psql p        Opens a psql shell"
+    echo "rebuild r     Rebuilds the image from the Dockerfile in the current folder"
     echo "shut          Shuts the database server down"
     echo "status        Tells if the database is up or down"
 }
@@ -74,6 +79,10 @@ case "$1" in
     psql|p)
         shift
         psql "$@"
+        ;;
+    rebuild|r)
+        shift
+        rebuild
         ;;
     status)
         shift
