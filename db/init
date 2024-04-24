@@ -1,0 +1,10 @@
+#!/bin/bash
+
+docker run -it --name footylensdb \
+    -e POSTGRES_PASSWORD=senhasenha \
+    -e POSTGRES_USER=footy \
+    -e POSTGRES_DB=footylens \
+    footylensdb:latest \
+    postgres -c shared_buffers=256MB -c max_connections=200
+
+# docker exec -it footylensdb psql -d footylens -U footy
