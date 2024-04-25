@@ -17,11 +17,19 @@ CREATE TABLE User (
     bio TEXT
 );
 
-CREATE TABLE followers (
+CREATE TABLE UserFollow (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     follower_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user(id),
+    FOREIGN KEY (follower_id) REFERENCES user(id)
+);
+
+CREATE TABLE TeamFollow (
+    id SERIAL PRIMARY KEY,
+    team_id INT NOT NULL,
+    follower_id INT NOT NULL,
+    FOREIGN KEY (team_id) REFERENCES team(id),
     FOREIGN KEY (follower_id) REFERENCES user(id)
 );
 
