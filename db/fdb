@@ -5,17 +5,34 @@ IMAGE_TAG=latest
 CONTAINER_NAME=${IMAGE_NAME}
 DATABASE_NAME=footylens
 DATABASE_USER=footy
-DATABASE_PASSWORD=senhasenha
+DATABASE_PASSWORD=${DATABASE_PASSWORD:-"senhasenha"}
 DATABASE_MAX_CONNECTIONS=200
 
+# If running a global installation the FOOTY_DATABASE_FOLDER needs to be configured
+if [[ ${FOOTY_DATABASE_FOLDER} == "" && $0 != "./fdb" ]]; then
+    echo "The environment variable FOOTY_DATABASE_FOLDER isn't configured"
+    echo "Add it to your .bashrc, .zshrc or equivalent and open a new terminal"
+    echo "The varible must point to the folder db inside the footylens-server folder"
+    echo "Example: \`export FOOTY_DATABASE_FOLDER=/home/foo/my-projects/footylens-server/db\`"
+    exit 22
+fi
+
+if [[ $(which docker) == "" ]]; then
+    echo "You need to install docker to use fdb"
+fi
+
+# Checks if the container exists and remove it
 remove-container() {
     [[ -n `docker ps -a | grep ${CONTAINER_NAME}` ]] && \
-        docker rm ${CONTAINER_NAME}
+        docker rm ${CONTAINER_NAME} > /dev/null && \
+        echo "Removed the database container"
 }
 
+# Checks if the container is running and stops it
 stop-container() {
     [[ -n `docker ps | grep ${CONTAINER_NAME}` ]] && \
-        docker stop ${CONTAINER_NAME}
+        docker stop ${CONTAINER_NAME} > /dev/null &&
+        echo "Database server is now stoped"
 }
 
 container-status() {
@@ -30,6 +47,7 @@ container-status() {
 }
 
 init() {
+    # Makes sure the container is down
     remove-container
 
     docker run -itd \
@@ -39,6 +57,15 @@ init() {
         -e POSTGRES_DB=${DATABASE_NAME} \
         ${IMAGE_NAME}:${IMAGE_TAG} \
         postgres -c shared_buffers=256MB -c max_connections=${DATABASE_MAX_CONNECTIONS}
+}
+
+install() {
+    # Asserts that the folder exists
+    [[ ! -d "${HOME}/.local/bin" ]] && mkdir -p ~/.local/bin
+    # Creates a symlink
+    ln -s ${FOOTY_DATABASE_FOLDER}/fdb ~/.local/bin/fdb
+
+    echo "Installed! Make sure \`~/.local/bin\` is in your PATH"
 }
 
 shut() {
@@ -51,6 +78,10 @@ rebuild() {
 }
 
 psql() {
+    [[ `docker ps | grep ${CONTAINER_NAME}` == "" ]] && \
+        echo "The database is down. Run \`fdb init\` first" && \
+        return 22
+
     docker exec -it ${CONTAINER_NAME} psql -d ${DATABASE_NAME} -U ${DATABASE_USER}
 }
 
@@ -61,6 +92,7 @@ help() {
 
     echo "help          Shows this page"
     echo "init i        Initiates the database server"
+    echo "install       Creates a symlink to this executable in your \`~/.local/bin\` folder"
     echo "psql p        Opens a psql shell"
     echo "rebuild r     Rebuilds the image from the Dockerfile in the current folder"
     echo "shut          Shuts the database server down"
@@ -71,6 +103,10 @@ case "$1" in
     init|i)
         shift
         init "$@"
+        ;;
+    install)
+        shift
+        install
         ;;
     shut)
         shift
@@ -95,5 +131,6 @@ case "$1" in
     *)
         echo "Unknown command $1"
         help
+        exit 22
         ;;    
 esac
