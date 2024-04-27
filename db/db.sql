@@ -47,6 +47,15 @@ CREATE TABLE Matches (
     FOREIGN KEY (visitor) REFERENCES Teams(id)
 );
 
+CREATE TABLE Events (
+    id SERIAL PRIMARY KEY,
+    event INT NOT NULL,
+    time INT NOT NULL,
+    FOREIGN KEY (player_id) REFERENCES Players(id),
+    FOREIGN KEY (match_id) REFERENCES Matches(id),
+    FOREIGN KEY (team_id) REFERENCES Teams(id)
+);
+
 CREATE TABLE Reviews (
     id SERIAL PRIMARY KEY,
     match_id INT NOT NULL,
