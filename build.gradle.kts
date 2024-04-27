@@ -26,6 +26,8 @@ repositories {
 
 dependencies {
     implementation("org.ktorm:ktorm-core:3.6.0")
+    implementation("org.ktorm:ktorm-support-postgresql:3.6.0")
+    implementation("org.postgresql:postgresql:42.3.1")
     implementation("io.ktor:ktor-server-call-logging-jvm")
     implementation("io.ktor:ktor-server-core-jvm")
     implementation("io.ktor:ktor-server-auth-jvm")
