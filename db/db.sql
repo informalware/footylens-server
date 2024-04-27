@@ -47,7 +47,7 @@ CREATE TABLE Review (
 CREATE TABLE Team (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    league INT NOT NULL
+    league VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Match (
