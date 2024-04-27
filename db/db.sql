@@ -17,7 +17,7 @@ CREATE TABLE User (
     bio TEXT
 );
 
-CREATE TABLE UserFollow (
+CREATE TABLE UserFollows (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     follower_id INT NOT NULL,
