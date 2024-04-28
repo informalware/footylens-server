@@ -40,11 +40,11 @@ CREATE TABLE TeamFollows (
 CREATE TABLE Matches (
     id SERIAL PRIMARY KEY,
     home INT NOT NULL,
-    visitor INT NOT NULL,
+    away INT NOT NULL,
     h_scoreboard INT NOT NULL,
     v_scoreboard INT NOT NULL,
     FOREIGN KEY (home) REFERENCES Teams(id),
-    FOREIGN KEY (visitor) REFERENCES Teams(id)
+    FOREIGN KEY (away) REFERENCES Teams(id)
 );
 
 CREATE TABLE Events (
