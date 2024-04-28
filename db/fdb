@@ -1,0 +1,203 @@
+#!/bin/bash
+
+IMAGE_NAME=footylensdb
+IMAGE_TAG=latest
+CONTAINER_NAME=${IMAGE_NAME}
+VOLUME_NAME="${CONTAINER_NAME}-volume"
+DATABASE_NAME=footylens
+DATABASE_USER=footy
+DATABASE_PASSWORD=${DATABASE_PASSWORD:-"senhasenha"}
+DATABASE_PORT=5432
+DATABASE_MAX_CONNECTIONS=200
+
+# If running a global installation the FOOTY_DATABASE_FOLDER needs to be configured
+if [[ ${FOOTY_DATABASE_FOLDER} == "" && $0 != "./fdb" ]]; then
+    echo "The environment variable FOOTY_DATABASE_FOLDER isn't configured"
+    echo "Add it to your .bashrc, .zshrc or equivalent and open a new terminal"
+    echo "The variable must point to the folder db inside the footylens-server folder"
+    echo "Example: \`export FOOTY_DATABASE_FOLDER=/home/foo/my-projects/footylens-server/db\`"
+    exit 20
+fi
+
+FOOTY_DATABASE_FOLDER=${FOOTY_DATABASE_FOLDER:-`pwd`}
+
+if [[ $(which docker) == "" ]]; then
+    echo "You need to install docker to use fdb"
+    exit 21
+fi
+
+# Load values from a .config file
+if [[ -e "${FOOTY_DATABASE_FOLDER}/.config" ]]; then
+  export `grep -v '^#' "${FOOTY_DATABASE_FOLDER}/.config" | xargs -d '\n'`
+fi
+
+dir() {
+  echo "${FOOTY_DATABASE_FOLDER}/$1"
+}
+
+# Checks and runs for the first time the container is ran
+setup-container() {
+    [[ ! -n `docker volume list | grep ${VOLUME_NAME}` ]] && \
+        docker volume create ${VOLUME_NAME}
+}
+
+# Checks if the container exists and remove it
+remove-container() {
+    [[ -n `docker ps -a | grep ${CONTAINER_NAME}` ]] && \
+        docker rm ${CONTAINER_NAME} > /dev/null && \
+        echo "Removed the database container"
+}
+
+# Checks if the container is running and stops it
+stop-container() {
+    [[ -n `docker ps | grep ${CONTAINER_NAME}` ]] && \
+        docker stop ${CONTAINER_NAME} > /dev/null && \
+        echo "Database server is now stoped"
+}
+
+container-status() {
+    local container_info=$(docker ps --format 'Container {{.Names}} started {{.RunningFor}}' | grep "${CONTAINER_NAME}")
+
+    if [[ -n "$container_info" ]]; then
+        echo "Database server is running."
+        echo "$container_info"
+    else
+        echo "Database server is down."
+    fi
+}
+
+clear-data() {
+    [[ -n `docker volume list | grep ${VOLUME_NAME}` ]] && \
+        docker volume rm ${VOLUME_NAME}
+}
+
+init() {
+    [[ -n `docker ps | grep ${CONTAINER_NAME}` ]] && \
+      echo "Database server already running" && \
+      return 0
+
+    setup-container
+
+    docker run -itd \
+        --name ${CONTAINER_NAME} \
+        -e POSTGRES_PASSWORD="${DATABASE_PASSWORD}" \
+        -e POSTGRES_USER="${DATABASE_USER}" \
+        -e POSTGRES_DB="${DATABASE_NAME}" \
+        -v "${VOLUME_NAME}:/var/lib/postgresql/data" \
+        -p ${DATABASE_PORT}:5432 \
+        "${IMAGE_NAME}:${IMAGE_TAG}" \
+        postgres -c shared_buffers=256MB -c max_connections=${DATABASE_MAX_CONNECTIONS}
+}
+
+install() {
+    # Asserts that the folder exists
+    [[ ! -d "${HOME}/.local/bin" ]] && mkdir -p ~/.local/bin
+    # Creates a symlink
+    ln -s "${FOOTY_DATABASE_FOLDER}/fdb" ~/.local/bin/fdb
+
+    echo "Installed! Make sure \`~/.local/bin\` is in your PATH"
+}
+
+shut() {
+    stop-container
+    remove-container
+}
+
+rebuild() {
+    docker build . -t ${IMAGE_NAME}:${IMAGE_TAG}
+}
+
+psql() {
+    [[ `docker ps | grep ${CONTAINER_NAME}` == "" ]] && \
+        echo "The database is down. Run \`fdb init\` first" && \
+        return 22
+
+    if [ -n "$*" ]; then
+        docker exec -it ${CONTAINER_NAME} \
+            psql -d ${DATABASE_NAME} -U ${DATABASE_USER} -c "$*"
+    else 
+        docker exec -it ${CONTAINER_NAME} \
+            psql -d ${DATABASE_NAME} -U ${DATABASE_USER}
+    fi
+
+}
+
+shell() {
+    [[ `docker ps | grep ${CONTAINER_NAME}` == "" ]] && \
+        echo "The database is down. Run \`fdb init\` first" && \
+        return 22
+
+    if [ -n "$*" ]; then
+        docker exec -it ${CONTAINER_NAME} /bin/bash -c "$*"
+    else
+        docker exec -it ${CONTAINER_NAME} /bin/bash
+    fi
+
+}
+
+help() {
+    echo "Footylens Database Manager Beta"
+    echo "Usage fdb <command> [options]"
+    echo "The environment variable FOOTY_DATABASE_FOLDER defines the folder where the db related files must be stored"
+    echo "The file \${FOOTY_DATABASE_FOLDER}/.config can be used to configure the"
+    echo ""
+
+    echo "help                  Shows this page"
+    echo "clear-data		Destroys the volume in order to clear all the stored data"
+    echo "dir [PATH]            Echoes \$FOOTY_DATABASE_FOLDER/PATH"
+    echo "init i                Initiates the database server"
+    echo "install               Creates a symlink to this executable in your \`~/.local/bin\` folder"
+    echo "psql p [QUERY]        Opens a psql shell, if an optional query is passed executes it and finishes"
+    echo "rebuild r             Rebuilds the image from the Dockerfile in the current folder"
+    echo "shell sh [COMMAND]    Opens a shell inside the database container, if an optional command is passed executes it and finishes"
+    echo "shut                  Shuts the database server down"
+    echo "status                Tells if the database is up or down"
+}
+
+case "$1" in
+    clear-data)
+	shift
+	clear-data
+	;;
+    dir)
+        shift
+        dir "$1"
+        ;;
+    init|i)
+        shift
+        init "$@"
+        ;;
+    install)
+        shift
+        install
+        ;;
+    psql|p)
+        shift
+        psql "$@"
+        ;;
+    rebuild|r)
+        shift
+        rebuild
+        ;;
+    shell|sh)
+        shift
+        shell "$@"
+        ;;
+    shut)
+        shift
+        shut
+        ;;
+    status)
+        shift
+        container-status
+        ;;
+    help|-h)
+        shift
+        help
+        ;;
+    *)
+        echo "Unknown command $1"
+        help
+        exit 22
+        ;;    
+esac
