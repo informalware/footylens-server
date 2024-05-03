@@ -97,6 +97,23 @@ Cria um novo comentário associado a uma review
     "commentary": String
 }```
 
+## Search
+
+Rota para realizar buscas por times ou usuários
+
+### GET `/search`
+
+Obtém a lista de todos os usuários ou times que batem com o termo passado
+
+**Body**: ```{
+    "term": String
+}```
+
+**Response**: ```{
+    "users": List<Int>,
+    "teams": List<Int>
+}```
+
 # Respostas
 
 Respostas devem ser mandadas como `json`, em caso de sucesso apenas mande o objeto serializado. Em caso de falha responda com um `mapOf()` com uma entrada `"error"` e como valor uma mensagem descrevendo o erro
