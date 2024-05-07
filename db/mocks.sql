@@ -126,3 +126,131 @@ INSERT INTO Reviews (match_id, user_id, rating, review, creation_date, modified_
 (3, 11, 1, 'Tottenham disappoints again in a 1-2 defeat to Manchester City.', '2021-11-20', '2021-11-20'),
 (4, 12, 2, 'Real Madrid and Barcelona 2-2 draw, great tactical match.', '2021-11-21', '2021-11-21'),
 (5, 1, 3, 'Juventus outplayed Atletico Madrid in a decisive 3-1 win.', '2021-11-22', '2021-11-22');
+
+INSERT INTO Commentaries (review_id, user_id, commentary, creation_date, modified_date)
+VALUES
+(1, 2, 'Totally agree, it was a thrilling match!', '2021-10-06', '2021-10-06'),
+(1, 3, 'Manchester really pulled it off with that strategy.', '2021-10-06', '2021-10-06'),
+(1, 4, 'I wish Liverpool had pushed a bit harder, they had the potential.', '2021-10-06', '2021-10-06'),
+(1, 5, 'What a game! The excitement was real.', '2021-10-06', '2021-10-06'),
+(1, 6, 'Definitely one of the best matches this season.', '2021-10-06', '2021-10-06');
+
+INSERT INTO Commentaries (review_id, user_id, commentary, creation_date, modified_date)
+VALUES
+(2, 1, 'A little more effort from Liverpool could have changed everything.', '2021-10-07', '2021-10-07'),
+(2, 3, 'Manchester really showed their class though.', '2021-10-07', '2021-10-07'),
+(2, 4, 'It was a good game, but expected more action.', '2021-10-07', '2021-10-07'),
+(2, 5, 'United’s defense was top-notch.', '2021-10-07', '2021-10-07'),
+(2, 6, 'Hoping for a rematch soon. Would be great to see them go at it again!', '2021-10-07', '2021-10-07');
+
+INSERT INTO Commentaries (review_id, user_id, commentary, creation_date, modified_date)
+VALUES
+(3, 1, 'Chelseas performance was absolutely stellar.', '2021-10-08', '2021-10-08'),
+(3, 2, 'Chelsea has really upped their game this season.', '2021-10-08', '2021-10-08'),
+(3, 4, 'Arsenal needs to rethink their strategy if they want to compete.', '2021-10-08', '2021-10-08'),
+(3, 5, 'Such an intense match, had me on the edge of my seat!', '2021-10-08', '2021-10-08'),
+(3, 6, 'Chelsea deserved that win. They were the better team.', '2021-10-08', '2021-10-08');
+
+INSERT INTO Commentaries (review_id, user_id, commentary, creation_date, modified_date)
+VALUES
+(4, 1, 'Not the most exciting match this year, but decent.', '2021-10-08', '2021-10-08'),
+(4, 3, 'Both teams need to work on their offensive plays.', '2021-10-08', '2021-10-08'),
+(4, 4, 'Felt like a mid-season game, nothing extraordinary.', '2021-10-08', '2021-10-08'),
+(4, 5, 'Decent game, but I’ve seen better this season.', '2021-10-08', '2021-10-08'),
+(4, 6, 'Hope the next games are more thrilling.', '2021-10-08', '2021-10-08');
+
+INSERT INTO Commentaries (review_id, user_id, commentary, creation_date, modified_date)
+VALUES
+(5, 1, 'Another win for Leeds, they are on fire!', '2021-10-09', '2021-10-09'),
+(5, 2, 'I didn’t expect such a strong performance from Leeds.', '2021-10-09', '2021-10-09'),
+(5, 3, 'Leeds is becoming the surprise of the season.', '2021-10-09', '2021-10-09'),
+(5, 4, 'The defense strategy from Leeds was outstanding.', '2021-10-09', '2021-10-09'),
+(5, 5, 'Thrilled about how Leeds is shaping up this year!', '2021-10-09', '2021-10-09');
+
+INSERT INTO Commentaries (review_id, user_id, commentary, creation_date, modified_date)
+VALUES
+(6, 1, 'Was expecting Spurs to give a bit more challenge.', '2021-10-10', '2021-10-10'),
+(6, 2, 'A good effort from Spurs despite the result.', '2021-10-10', '2021-10-10'),
+(6, 3, 'Smart game from Liverpool, loved the strategy.', '2021-10-10', '2021-10-10'),
+(6, 4, 'Looking forward to seeing how Spurs will bounce back.', '2021-10-10', '2021-10-10'),
+(6, 5, 'Liverpool really showed their class, great match.', '2021-10-10', '2021-10-10');
+
+INSERT INTO Commentaries (review_id, user_id, commentary, creation_date, modified_date)
+VALUES
+(7, 2, 'Chelseas lineup was unexpected but effective.', '2021-10-10', '2021-10-10'),
+(7, 3, 'Great tactical game from Chelsea, well played!', '2021-10-10', '2021-10-10'),
+(7, 4, 'Chelsea definitely deserved that win, great effort!', '2021-10-10', '2021-10-10'),
+(7, 5, 'Arsenal really needs to step up their defense.', '2021-10-10', '2021-10-10'),
+(7, 6, 'One of the best performances by Chelsea this season!', '2021-10-10', '2021-10-10');
+
+INSERT INTO Commentaries (review_id, user_id, commentary, creation_date, modified_date)
+VALUES
+(8, 1, 'Strong performance from both teams, very enjoyable.', '2021-10-11', '2021-10-11'),
+(8, 3, 'Was expecting a bit more from Manchester, but good game overall.', '2021-10-11', '2021-10-11'),
+(8, 4, 'A nail-biter till the end, very evenly matched teams.', '2021-10-11', '2021-10-11'),
+(8, 5, 'Both teams had brilliant moments, thrilling match!', '2021-10-11', '2021-10-11'),
+(8, 6, 'Hope to see more such competitive matches this season.', '2021-10-11', '2021-10-11');
+
+INSERT INTO Commentaries (review_id, user_id, commentary, creation_date, modified_date)
+VALUES
+(9, 2, 'Liverpool’s offense was on fire today!', '2021-10-12', '2021-10-12'),
+(9, 3, 'Not the best day for Spurs, but Liverpool was unstoppable.', '2021-10-12', '2021-10-12'),
+(9, 4, 'Magnificent game by Liverpool, well-coordinated team.', '2021-10-12', '2021-10-12'),
+(9, 5, 'Spurs had their moments but Liverpool was too good.', '2021-10-12', '2021-10-12'),
+(9, 6, 'Liverpool has been the team to watch this season, impressive!', '2021-10-12', '2021-10-12');
+
+INSERT INTO Commentaries (review_id, user_id, commentary, creation_date, modified_date)
+VALUES
+(10, 1, 'Great resilience shown by Leeds, remarkable performance.', '2021-10-13', '2021-10-13'),
+(10, 2, 'Leeds is turning out to be quite the dark horse this season.', '2021-10-13', '2021-10-13'),
+(10, 3, 'Was rooting for a draw but Leeds clinched it, kudos.', '2021-10-13', '2021-10-13'),
+(10, 4, 'Impressive strategy by Leeds, they’ve really improved.', '2021-10-13', '2021-10-13'),
+(10, 5, 'A well-deserved win for Leeds, they outplayed their opposition.', '2021-10-13', '2021-10-13');
+
+INSERT INTO Commentaries (review_id, user_id, commentary, creation_date, modified_date)
+VALUES
+(11, 1, 'Arsenal showed some solid tactics in this game.', '2021-10-14', '2021-10-14'),
+(11, 2, 'Arsenal’s performance was robust, really held their ground.', '2021-10-14', '2021-10-14'),
+(11, 3, 'Satisfying match to watch with Arsenal showing great potential!', '2021-10-14', '2021-10-14'),
+(11, 4, 'Arsenal could have won by a larger margin, good job nonetheless.', '2021-10-14', '2021-10-14'),
+(11, 5, 'That game was a proper display of Arsenal’s strengths.', '2021-10-14', '2021-10-14');
+
+INSERT INTO Commentaries (review_id, user_id, commentary, creation_date, modified_date)
+VALUES
+(12, 1, 'United keeps impressing this season, solid gameplay.', '2021-10-15', '2021-10-15'),
+(12, 2, 'Great strategic moves by United, they really controlled the game.', '2021-10-15', '2021-10-15'),
+(12, 3, 'United is definitely aiming for the top this year.', '2021-10-15', '2021-10-15'),
+(12, 4, 'Strong outing by United, they seem unstoppable.', '2021-10-15', '2021-10-15'),
+(12, 5, 'Impressive teamwork and coordination by United.', '2021-10-15', '2021-10-15');
+
+INSERT INTO Commentaries (review_id, user_id, commentary, creation_date, modified_date)
+VALUES
+(13, 1, 'Leeds never disappoints, another thrilling match!', '2021-10-16', '2021-10-16'),
+(13, 2, 'The energy Leeds brings to the field is incredible.', '2021-10-16', '2021-10-16'),
+(13, 3, 'Leeds played with such passion, it was contagious.', '2021-10-16', '2021-10-16'),
+(13, 4, 'An exhilarating match, Leeds was in top form.', '2021-10-16', '2021-10-16'),
+(13, 5, 'Gritty performance by Leeds, they truly earned that win.', '2021-10-16', '2021-10-16');
+
+INSERT INTO Commentaries (review_id, user_id, commentary, creation_date, modified_date)
+VALUES
+(14, 1, 'Thrilling match, Chelsea does it again!', '2021-10-17', '2021-10-17'),
+(14, 2, 'Chelsea’s attacking lineup was spectacular today.', '2021-10-17', '2021-10-17'),
+(14, 3, 'Such an intense game, Chelsea really stood out.', '2021-10-17', '2021-10-17'),
+(14, 4, 'Impressed by Chelseas form and resilience.', '2021-10-17', '2021-10-17'),
+(14, 5, 'Chelsea proved they are a top contender this season!', '2021-10-17', '2021-10-17');
+
+INSERT INTO Commentaries (review_id, user_id, commentary, creation_date, modified_date)
+VALUES
+(15, 1, 'Arsenal just keeps improving every game.', '2021-10-18', '2021-10-18'),
+(15, 2, 'What a match! Arsenal is truly turning things around.', '2021-10-18', '2021-10-18'),
+(15, 3, 'Arsenal’s coordination and tactics were on point.', '2021-10-18', '2021-10-18'),
+(15, 4, 'Arsenal definitely had the upper hand throughout the game.', '2021-10-18', '2021-10-18'),
+(15, 5, 'A fantastic game to watch, night and day difference from last season.', '2021-10-18', '2021-10-18');
+
+INSERT INTO Commentaries (review_id, user_id, commentary, creation_date, modified_date)
+VALUES
+(16, 1, 'United’s tactical game is getting sharper with each match.', '2021-10-19', '2021-10-19'),
+(16, 2, 'Yet another masterclass performance by United.', '2021-10-19', '2021-10-19'),
+(16, 3, 'Dominant display by United, they’re showing real contender qualities.', '2021-10-19', '2021-10-19'),
+(16, 4, 'United are laying down markers for others this season.', '2021-10-19', '2021-10-19'),
+(16, 5, 'Another win under United’s belt, they are unstoppable.', '2021-10-19', '2021-10-19');
