@@ -49,9 +49,11 @@ CREATE TABLE Matches (
 
 CREATE TABLE Events (
     id SERIAL PRIMARY KEY,
+    match_id INT NOT NULL,
+    team_id INT NOT NULL,
     event INT NOT NULL,
-    time INT NOT NULL,
-    FOREIGN KEY (player_id) REFERENCES Players(id),
+    moment INT NOT NULL,
+    player VARCHAR(255) NOT NULL,
     FOREIGN KEY (match_id) REFERENCES Matches(id),
     FOREIGN KEY (team_id) REFERENCES Teams(id)
 );
