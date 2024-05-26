@@ -80,6 +80,12 @@ VALUES (1, 2, 2, 1),
        (15, 19, 3, 1),
        (16, 20, 2, 2);
 
+INSERT INTO Events (match_id, team_id, event, moment, player) VALUES
+(1, 2, 1, 10, 'Carlos'),
+(1, 1, 1, 15, 'Alburqueue'),
+(1, 2, 3, 50, 'Manoel');
+
+
 INSERT INTO Reviews (match_id, user_id, rating, review, creation_date, modified_date) VALUES
 (1, 1, 4, 'What a match between Manchester United and Liverpool! Great performance, loved the 2-1 scoreline.', '2021-10-05', '2021-10-05'),
 (1, 2, 3, 'Nice game but Liverpool could have done better. Still, Manchester United played really well to win 2-1.', '2021-10-06', '2021-10-06'),
