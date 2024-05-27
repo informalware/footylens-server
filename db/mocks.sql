@@ -1,3 +1,7 @@
+DELETE FROM Reviews;
+DELETE FROM Commentaries;
+DELETE FROM Userfollows;
+DELETE FROM Teamfollows;
 DELETE FROM Users;
 DELETE FROM Teams;
 DELETE FROM Matches;
@@ -75,6 +79,12 @@ VALUES (1, 2, 2, 1),
        (14, 18, 1, 3),
        (15, 19, 3, 1),
        (16, 20, 2, 2);
+
+INSERT INTO Events (match_id, team_id, event, moment, player) VALUES
+(1, 2, 1, 10, 'Carlos'),
+(1, 1, 1, 15, 'Alburqueue'),
+(1, 2, 3, 50, 'Manoel');
+
 
 INSERT INTO Reviews (match_id, user_id, rating, review, creation_date, modified_date) VALUES
 (1, 1, 4, 'What a match between Manchester United and Liverpool! Great performance, loved the 2-1 scoreline.', '2021-10-05', '2021-10-05'),
@@ -254,3 +264,77 @@ VALUES
 (16, 3, 'Dominant display by United, they’re showing real contender qualities.', '2021-10-19', '2021-10-19'),
 (16, 4, 'United are laying down markers for others this season.', '2021-10-19', '2021-10-19'),
 (16, 5, 'Another win under United’s belt, they are unstoppable.', '2021-10-19', '2021-10-19');
+
+INSERT INTO Userfollows (user_id, follower_id)
+VALUES
+(1, 2),
+(3, 4),
+(5, 6),
+(7, 8),
+(9, 10),
+(11, 12),
+(2, 1),
+(4, 3),
+(6, 5),
+(8, 7),
+(10, 9),
+(12, 11),
+(1, 3),
+(2, 4),
+(3, 5),
+(4, 6),
+(5, 7),
+(6, 8),
+(7, 9),
+(8, 10);
+
+INSERT INTO Teamfollows (team_id, follower_id)
+VALUES
+(1, 2),
+(3, 4),
+(5, 6),
+(7, 8),
+(9, 10),
+(11, 12),
+(13, 1),
+(2, 3),
+(4, 5),
+(6, 7),
+(8, 9),
+(10, 11),
+(20, 12),
+(1, 3),
+(2, 4),
+(3, 5),
+(4, 6),
+(5, 7),
+(6, 8),
+(7, 9),
+(8, 10),
+(9, 11),
+(10, 12),
+(11, 1),
+(12, 2),
+(2, 1),
+(4, 3),
+(6, 5),
+(8, 7),
+(10, 9),
+(12, 11),
+(1, 4),
+(3, 6),
+(5, 8),
+(7, 10),
+(9, 12),
+(13, 2),
+(1, 5),
+(2, 6),
+(3, 7),
+(4, 8),
+(5, 9),
+(6, 10),
+(7, 11),
+(8, 12),
+(9, 7),
+(10, 1),
+(11, 2);
