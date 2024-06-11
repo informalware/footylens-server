@@ -67,6 +67,7 @@ CREATE TABLE Reviews (
     creation_date DATE NOT NULL,
     modified_date DATE NOT NULL,
     FOREIGN KEY (user_id) REFERENCES Users(id)
+    FOREIGN KEY (match_id) REFERENCES Matches(id)
 );
 
 CREATE TABLE Commentaries (
