@@ -34,7 +34,7 @@ CREATE TABLE TeamFollows (
     follower_id INT NOT NULL,
     FOREIGN KEY (team_id) REFERENCES Teams(id),
     FOREIGN KEY (follower_id) REFERENCES Users(id),
-    PRIMARY KEY (user_id, follower_id)
+    PRIMARY KEY (team_id, follower_id)
 );
 
 CREATE TABLE Matches (
