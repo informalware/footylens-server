@@ -19,7 +19,7 @@ CREATE TABLE UserFollows (
     user_id INT NOT NULL,
     follower_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES Users(id),
-    FOREIGN KEY (follower_id) REFERENCES Users(id)
+    FOREIGN KEY (follower_id) REFERENCES Users(id),
     PRIMARY KEY (user_id, follower_id)
 );
 
@@ -33,7 +33,7 @@ CREATE TABLE TeamFollows (
     team_id INT NOT NULL,
     follower_id INT NOT NULL,
     FOREIGN KEY (team_id) REFERENCES Teams(id),
-    FOREIGN KEY (follower_id) REFERENCES Users(id)
+    FOREIGN KEY (follower_id) REFERENCES Users(id),
     PRIMARY KEY (user_id, follower_id)
 );
 

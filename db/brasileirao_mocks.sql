@@ -8,7 +8,7 @@ DELETE FROM Matches;
 
 INSERT INTO Users (username, password, display, email, bio)
 VALUES ('ojarrisonn_', 'flamengo', 'Harrisonn', 'harrisonn@fl.net', 'Visca flamengo'),
-       ('thduvanel', 'florminense', 'Duvanel', 'thduvanel@live.com', 'Sou tricolor de coração')
+       ('thduvanel', 'florminense', 'Duvanel', 'thduvanel@live.com', 'Sou tricolor de coração');
 
 INSERT INTO Teams (name, league)
 VALUES ('Flamengo', 'Brasileirão'),
@@ -30,7 +30,7 @@ VALUES ('Flamengo', 'Brasileirão'),
        ('Atlético Goianiense', 'Brasileirão'),
        ('Juventude', 'Brasileirão'),
        ('Bragantino', 'Brasileirão'),
-       ('Criciúma', 'Brasileirão')
+       ('Criciúma', 'Brasileirão');
 
 
 INSERT INTO Matches (home, away, h_scoreboard, v_scoreboard)
@@ -45,7 +45,7 @@ VALUES (8, 20, 0, 2),
        (17, 14, 1, 0),
        (6, 16, 0, 0),
        (19, 18, 1, 0),
-       (21, 6, 2, 5),
+       (20, 6, 2, 5),
        (1, 3, 2, 0),
        (5, 14, 0, 2),
        (18, 10, 0, 1),
@@ -59,7 +59,7 @@ VALUES (8, 20, 0, 2),
        (14, 12, 1, 0),
        (16, 4, 1, 3),
        (11, 15, 1, 2),
-       (6, 5, 0, 2)
+       (6, 5, 0, 2);
 
 
 INSERT INTO Events (match_id, team_id, event, moment, player)
@@ -82,7 +82,7 @@ VALUES (5, 12, 2, 9, 'Vegetti'),
        (20, 2, 2, 61, 'Renato Augusto'),
        (20, 2, 2, 4, 'Germán Cano'),
        (20, 2, 9, 73, 'Vargas'),
-       (20, 2, 9, 79 'Vargas')
+       (20, 2, 9, 79, 'Vargas');
 
 
 
