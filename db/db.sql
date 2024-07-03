@@ -16,11 +16,11 @@ CREATE TABLE UserSessions (
 );
 
 CREATE TABLE UserFollows (
-    id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     follower_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES Users(id),
-    FOREIGN KEY (follower_id) REFERENCES Users(id)
+    FOREIGN KEY (follower_id) REFERENCES Users(id),
+    PRIMARY KEY (user_id, follower_id)
 );
 
 CREATE TABLE Teams (
@@ -30,11 +30,11 @@ CREATE TABLE Teams (
 );
 
 CREATE TABLE TeamFollows (
-    id SERIAL PRIMARY KEY,
     team_id INT NOT NULL,
     follower_id INT NOT NULL,
     FOREIGN KEY (team_id) REFERENCES Teams(id),
-    FOREIGN KEY (follower_id) REFERENCES Users(id)
+    FOREIGN KEY (follower_id) REFERENCES Users(id),
+    PRIMARY KEY (team_id, follower_id)
 );
 
 CREATE TABLE Matches (
@@ -66,7 +66,8 @@ CREATE TABLE Reviews (
     review TEXT,
     creation_date DATE NOT NULL,
     modified_date DATE NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES Users(id)
+    FOREIGN KEY (user_id) REFERENCES Users(id),
+    FOREIGN KEY (match_id) REFERENCES Matches(id)
 );
 
 CREATE TABLE Commentaries (
